@@ -4,19 +4,37 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-dryoc = "0.6"           # For sodix-compatible encryption
-serde = { version = "1.0", features = ["derive"] } # JSON serialization
-serde_json = "1.0"      # JSON handling
-sha2 = "0.10"           # SHA-256 for CIDs
-multihash = "0.19"      # Multihash for CIDs
-cid = "0.11"            # CID generation
-rusoto_s3 = "0.48"      # S3 client for go-btfs
-rusoto_core = "0.48"    # S3 core
-tokio = { version = "1.0", features = ["full"] } # Async runtime
-chrono = "0.4"          # Timestamps
-dirs = "5.0"            # Home directory
-walkdir = "2.5"         # Recursive directory walking
-notify = "6.1"          # Filesystem event watching
-clap = { version = "4.0", features = ["derive"] } # CLI arguments
-log = "0.4"             # Logging
-env_logger = "0.11"     # Logging implementation
+dryoc = "0.6"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = { version = "0.10", features = ["std"] }
+multihash = "0.19"
+cid = "0.11"
+aws-sdk-s3 = { version = "1.12", features = ["rt-tokio"] }       # AWS SDK
+aws-config = { version = "1.1", features = ["behavior-version-latest"] }        # AWS SDK configuration
+aws-types = "1.1"
+aws-smithy-runtime-api = "1.1"
+tokio = { version = "1.35", features = ["full"] }
+chrono = "0.4"
+dirs = "6.0.0"
+walkdir = "2.5"
+notify = "8.0.0"
+clap = { version = "4.4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+futures = "0.3"           # For concurrent processing
+indicatif = { version = "0.17", features = ["improved_unicode", "rayon"] }        # Progress bars
+thiserror = "2.0.12"        # Better error handling
+rayon = "1.8"            # Parallel processing
+governor = { version = "0.8", features = ["std", "jitter"] }         # Rate limiting
+backoff = { version = "0.4", features = ["tokio"] }     # Add futures feature
+parking_lot = { version = "0.12", features = ["send_guard", "nightly", "arc_lock"] }     # Fast RwLock for caching
+bytesize = "2.0.1"        # Human readable byte sizes
+futures-util = "0.3"    # Additional future utilities
+memmap2 = "0.9"     # Memory mapping for efficient file reading
+bytes = { version = "1.5", features = ["std"] }   # For ByteStream
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
